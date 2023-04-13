@@ -1,0 +1,34 @@
+/*Hallann Lázaro
+2022227
+Practica 3.4*/
+
+int Pimedicion = A1;//Pin analogico 
+int Resistencia1 = 1000;// Establece valor estandar 
+long Lectura;//variable de lectura
+float Tension = 5.0;//tencion estandar
+float ValorR2;// Valor de resistencia2
+float Resistencia;// Valor de resistencia
+
+void setup()
+{
+  Serial.begin(9600);// activacion de el monitor 
+}
+void loop()
+{
+  Lectura=0;//Establese valor a lectura
+  for(int i=0;i<5;i++){//Se crea un buble con condicionamiento
+    Lectura+=analogRead(Pimedicion);//establece							 
+  }
+  Lectura=trunc(Lectura/5);//Lectura
+  
+  ValorR2=(Tension/1023.0)*Lectura;//Establese valor a resistencia con condicion
+  Serial.print("Voltaje detectado: ");//Se coloca un Print
+  Serial.println(ValorR2);//print con lo a mostrar en el monitor
+  
+  Resistencia=Resistencia1*ValorR2/(Tension-ValorR2);//Establese valor a resistencia con condicion
+  Serial.print("Se a detectado un valor de recistencia de: ");//muestra el valor
+  Serial.print(Resistencia,5);//Valor a mostrar
+  Serial.println(" Ohm.");//para luego del digito
+  Serial.println();//salto de linia
+  delay(5000);//Determina tiempo
+}
