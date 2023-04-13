@@ -1,0 +1,19 @@
+/*Hallann Lázaro
+2022227
+Practica 3.5*/
+
+float Resistencia1=100000;// valor estandar de resistencia1
+float Resistencia2=71400;// valor estandar de resistencia1
+
+void setup()
+{
+  Serial.begin(9600);// activacion de el monitor 
+}
+void loop()
+{
+float Valor2=(analogRead(A0)*5)/1023.0;//Asignacion de el valor con condicion
+float Factor=(Valor2/(Resistencia2/(Resistencia1+Resistencia2)));//asignacion de de factor con condicion
+Serial.print(" Valor de voltaje detectado = ");//Texto a mostrar en el monitor
+Serial.println(Factor,5);//Valor a mostrar en el monitor
+delay(500);//Determina tiempo
+}
