@@ -1,0 +1,24 @@
+/*Hallann Lázaro
+2022227
+Practica 3.1*/
+
+int Pot = A0; //Pin analogico
+int Lectura;//variable de lectura
+int Led = 3;//Pin de salida
+
+void setup()
+{
+  Serial.begin(9600);// activacion de el monitor 
+  pinMode(Pot, INPUT);//Establecimiento de entrada
+  pinMode(Led, OUTPUT);//Establecimiento de salida
+}
+
+void loop()
+{
+  Lectura = analogRead(Pot)/4;//comparacion y divicion de la capacidad de el regulador
+  analogWrite(Led, Lectura);//Establese lo que se vera en el monitor
+  Serial.println(Lectura);//Lectura a mostrar
+ delay(10);//Determina tiempo
+  
+  
+}
