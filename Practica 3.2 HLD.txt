@@ -1,0 +1,51 @@
+/*Hallann Lázaro
+2022227
+Practica 3.2*/
+
+int Pot1 = A0;//Pin analogico 1
+int Pot2 = A1;//Pin analogico 2
+int Pot3 = A2;//Pin analogico 3
+int Lectura1;//variable de lectura 1
+int Lectura2;//variable de lectura 2
+int Lectura3;//variable de lectura 3
+int Led1 = 3;//Pin de salida 1
+int Led2 = 5;//Pin de salida 2
+int Led3 = 6;//Pin de salida 3
+
+void setup()
+{
+  Serial.begin(9600);// activacion de el monitor 
+  pinMode(Pot1, INPUT);//Establecimiento de entrada
+  pinMode(Led1, OUTPUT);//Establecimiento de salida
+  pinMode(Pot2, INPUT);//Establecimiento de entrada
+  pinMode(Led2, OUTPUT);//Establecimiento de salida
+  pinMode(Pot2, INPUT);//Establecimiento de entrada
+  pinMode(Led3, OUTPUT);//Establecimiento de salida
+}
+
+void loop()
+{
+  Lectura1 = analogRead(Pot1)/4;//comparacion y divicion de la capacidad de el regulador
+  analogWrite(Led1, Lectura1);//Establese lo que se vera en el monitor de lectura 1
+ delay(100);//Determina tiempo
+  
+  Lectura2 = analogRead(Pot2)/4;//comparacion y divicion de la capacidad de el regulador
+  analogWrite(Led2, Lectura2);//Establese lo que se vera en el monitor de lectura 2
+ delay(100);//Determina tiempo
+  
+  Lectura3 = analogRead(Pot3)/4;//comparacion y divicion de la capacidad de el regulador
+  analogWrite(Led3, Lectura3);//Establese lo que se vera en el monitor de lectura 3
+ delay(1000);//Determina tiempo
+  
+  Serial.print("  R: ");//Muestra estos caracteres en el monitor para Lectura 1
+  Serial.print(Lectura1);//Lectura1 a mostrar
+  
+  Serial.print("  G: ");//Muestra estos caracteres en el monitor para Lectura 2
+  Serial.print(Lectura2);//Lectura2 a mostrar
+  
+  Serial.print("  B: ");//Muestra estos caracteres en el monitor para Lectura 3
+  Serial.println(Lectura3);//Lectura3 a mostrar
+  
+  
+  
+}
