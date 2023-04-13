@@ -1,0 +1,65 @@
+/*Hallann Lázaro
+2022227
+Practica 3.3*/
+
+int Pot = A0;// pin analógico 
+int Lectura;//variable de lectura
+int Led1 = 3;//Pin de salida1
+int Led2 = 5;//Pin de salida2
+int Led3 = 6;//Pin de salida3
+int Led4 = 9;//Pin de salida4
+int Led5 = 10;//Pin de salida5
+
+void setup()
+{
+  Serial.begin(9600);// activacion de el monitor 
+  pinMode(Pot, INPUT);//Establecimiento de entrada
+  pinMode(Led1, OUTPUT);//Establecimiento de salida
+  pinMode(Led2, OUTPUT);//Establecimiento de salida
+  pinMode(Led3, OUTPUT);//Establecimiento de salida
+  pinMode(Led4, OUTPUT);//Establecimiento de salida
+  pinMode(Led5, OUTPUT);//Establecimiento de salida
+}
+
+void loop()
+{
+  Lectura = analogRead(Pot);//comparacion de la capacidad de el regulador
+  
+  if(Lectura  >=50 && Lectura <=250){//Consionamiento
+     digitalWrite(Led1,HIGH);//Escrito a mostrar si se cumple la condicion
+    }
+  else if(Lectura  >=0 && Lectura <=49){//Else por si no se cumple el if
+     digitalWrite(Led1,LOW);//Escrito a mostrar si no se cumple la condicion
+   }
+  
+   if(Lectura  >=249 && Lectura <=350){//Consionamiento
+     digitalWrite(Led2,HIGH);//Escrito a mostrar si se cumple la condicion
+    }
+  else if(Lectura  >=0 && Lectura <=200){//Else por si no se cumple el if
+     digitalWrite(Led2,LOW);//Escrito a mostrar si no se cumple la condicion
+   }
+  
+   if(Lectura  >=350 && Lectura <=500){//Consionamiento
+     digitalWrite(Led3,HIGH);//Escrito a mostrar si se cumple la condicion
+    }
+  else if(Lectura  >=0 && Lectura <=250){//Else por si no se cumple el if
+     digitalWrite(Led3,LOW);//Escrito a mostrar si no se cumple la condicion
+   }
+  
+   if(Lectura  >=500 && Lectura <=750){//Consionamiento
+     digitalWrite(Led4,HIGH);//Escrito a mostrar si se cumple la condicion
+    }
+  else if(Lectura  >=0 && Lectura <=300){//Else por si no se cumple el if
+     digitalWrite(Led4,LOW);//Escrito a mostrar si no se cumple la condicion
+   }
+  
+   if(Lectura  >=750 && Lectura <=1000){//Consionamiento
+     digitalWrite(Led5,HIGH);//Escrito a mostrar si se cumple la condicion
+    }
+  else if(Lectura  >=0 && Lectura <=350){//Else por si no se cumple el if
+     digitalWrite(Led5,LOW);//Escrito a mostrar si no se cumple la condicion
+   }
+ delay(10);//Determina tiempo
+  
+  
+}
