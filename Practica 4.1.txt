@@ -1,0 +1,31 @@
+/*Hallann Lázaro
+  2022227
+  Practica 4.1*/
+  
+int Fot = A0; //Pin analogico
+int Lectura;//variable de lectura
+int foco = 5;//Pin de salida
+
+void setup()
+{
+  Serial.begin(9600);// activacion de el monitor 
+  pinMode(Fot, INPUT);//Establecimiento de entrada
+  pinMode(foco, OUTPUT);//Establecimiento de salida
+}
+
+void loop()
+{
+  Lectura = analogRead(Fot);//comparacion y divicion de la capacidad de el regulador
+  analogWrite(foco, Lectura);//Establese lo que se vera en el monitor
+  Serial.println(Lectura);//Lectura a mostrar
+ delay(10);//Determina tiempo
+
+ if(Lectura  <=650){//Consionamiento
+     digitalWrite(foco,LOW);//Escrito a mostrar si se cumple la condicion
+    }
+  else if(Lectura  >= 1000        ){//Else por si no se cumple el if
+     digitalWrite(foco,HIGH);//Escrito a mostrar si no se cumple la condicion
+   }
+   delay(100);
+
+}
