@@ -1,3 +1,7 @@
+/*Hallann Lázaro
+2022227
+Práctica 4.3*/
+
 const int pulsador1 = A0;
 const int pulsador2 = A1;
 const int pulsador3 = 2;
