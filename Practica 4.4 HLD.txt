@@ -1,0 +1,192 @@
+/*Hallann Lázaro
+2022227
+Práctica 4.4*/
+
+const int pulsador1 = 2;
+const int pulsador2 = 3;
+const int buzzer = 9;
+const int ZumbadorPin = 11; 
+const int c=261; 
+const int d=294;
+const int e=329;
+const int f=349;
+const int g=391;
+const int gS=415;
+const int a=440;
+const int aS=455;
+const int b=466;
+const int cH=523;
+const int cSH=554;
+const int dH=587;
+const int dSH=622;
+const int eH=659;
+const int fH=698;
+const int fSH=740;
+const int gH=783;
+const int gSH=830;
+const int aH=880;
+
+
+int melodia1[] = {//melodia 1
+  1915, 1700, 1519, 1432, 1275, 1136, 1014,
+
+  956,  834,  765,  593,  468,  346,  224,
+
+  655 , 715, 1915, 1700, 1519, 1432, 1275, 1136, 1014,
+
+  956,  834,  765,  593,  468,  346,  224,
+
+  655 , 715,1915, 1700, 1519, 1432, 1275, 1136, 1014,
+
+  956,  834,  765,  593,  468,  346,  224,
+
+  655 , 715, 
+  };
+  
+int melodia2[] = {//melodia 2
+  
+  };
+
+
+int duracion = 200;//lo que dira cada nota
+
+void setup() {
+
+  pinMode(pulsador1, INPUT);//se configuran como entrada o salida
+  pinMode(pulsador2, INPUT);
+  pinMode(buzzer, OUTPUT);
+  pinMode(ZumbadorPin, OUTPUT);
+}
+
+void loop() {
+  
+  if (digitalRead(pulsador1) == HIGH) {
+    for (int i = 0; i < sizeof(melodia1) / sizeof(melodia1[0]); i++) {
+      tone(buzzer, melodia1[i], duracion);
+      delay(duracion);
+    }
+    delay(1000);
+  }
+  
+  else if (digitalRead(pulsador2) == HIGH) {
+    for (int i = 0; i < sizeof(melodia2) / sizeof(melodia2[0]); i++) {
+      tone(buzzer, melodia2[i], duracion);
+      delay(duracion);
+    }
+    
+    delay(1000);
+  }
+      tone(ZumbadorPin, a, 500);
+    delay(500+50);
+    tone(ZumbadorPin, a, 500);
+    delay(500+50);     
+    tone(ZumbadorPin, a, 500); 
+    delay(500+50);
+    tone(ZumbadorPin, f, 350);  
+    delay(350+50);
+    tone(ZumbadorPin, cH, 150);
+    delay(150+50); 
+    
+    tone(ZumbadorPin, a, 500);
+    delay(500+50);
+    tone(ZumbadorPin, f, 350);
+    delay(350+50);
+    tone(ZumbadorPin, cH, 150);
+    delay(150+50);
+    tone(ZumbadorPin, a, 1000);   
+    delay(1000+50);
+   
+    tone(ZumbadorPin, eH, 500);
+    delay(500+50);
+    tone(ZumbadorPin, eH, 500);
+    delay(500+50);
+    tone(ZumbadorPin, eH, 500); 
+    delay(500+50);   
+    tone(ZumbadorPin, fH, 350);
+    delay(350+50); 
+    tone(ZumbadorPin, cH, 150);
+    delay(150+50);
+    
+    tone(ZumbadorPin, gS, 500);
+    delay(500+50);
+    tone(ZumbadorPin, f, 350);
+    delay(350+50);
+    tone(ZumbadorPin, cH, 150);
+    delay(150+50);
+    tone(ZumbadorPin, a, 1000);
+    delay(1000+50);
+    
+    tone(ZumbadorPin, aH, 500);
+    delay(500+50);
+    tone(ZumbadorPin, a, 350);
+    delay(350+50); 
+    tone(ZumbadorPin, a, 150);
+    delay(150+50);
+    tone(ZumbadorPin, aH, 500);
+    delay(500+50);
+    tone(ZumbadorPin, gSH, 250); 
+    delay(250+50);
+    tone(ZumbadorPin, gH, 250);
+    delay(250+50);
+    
+    tone(ZumbadorPin, fSH, 125);
+    delay(125+50);
+    tone(ZumbadorPin, fH, 125);
+    delay(125+50);    
+    tone(ZumbadorPin, fSH, 250);
+    delay(250+50);
+    delay(250);
+    tone(ZumbadorPin, aS, 250);
+    delay(250+50);    
+    tone(ZumbadorPin, dSH, 500); 
+    delay(500+50); 
+    tone(ZumbadorPin, dH, 250); 
+    delay(250+50); 
+    tone(ZumbadorPin, cSH, 250);
+    delay(250+50);  
+    
+    // virtuosismo :)))
+    
+    tone(ZumbadorPin, cH, 125);
+    delay(125+50);  
+    tone(ZumbadorPin, b, 125); 
+    delay(125+50); 
+    tone(ZumbadorPin, cH, 250); 
+    delay(250+50);     
+    delay(250);
+    tone(ZumbadorPin, f, 125); 
+    delay(125+50); 
+    tone(ZumbadorPin, gS, 500); 
+    delay(500+50); 
+    tone(ZumbadorPin, f, 375); 
+    delay(375+50); 
+    tone(ZumbadorPin, a, 125);
+    delay(125+50); 
+    
+    tone(ZumbadorPin, cH, 500); 
+    delay(500+50);
+    tone(ZumbadorPin, a, 375);  
+    delay(375+50);
+    tone(ZumbadorPin, cH, 125); 
+    delay(125+50);
+    tone(ZumbadorPin, eH, 1000); 
+    delay(1000+50);
+ 
+    
+    tone(ZumbadorPin, aH, 500);
+    delay(500+50);
+    tone(ZumbadorPin, a, 350); 
+    delay(350+50);
+    tone(ZumbadorPin, a, 150);
+    delay(150+50);
+    tone(ZumbadorPin, aH, 500);
+    delay(500+50);
+    tone(ZumbadorPin, gSH, 250);
+    delay(250+50); 
+    tone(ZumbadorPin, gH, 250);
+    delay(250+50);
+    
+       
+ 
+    delay(2000);  // dos segundos para volver a empezar.
+}
