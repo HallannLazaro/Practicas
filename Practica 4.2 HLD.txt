@@ -1,6 +1,6 @@
 /*Hallann Lázaro
 2022227
-Práctica 4.1*/
+Práctica 4.2*/
 
 #include <Servo.h>
 
