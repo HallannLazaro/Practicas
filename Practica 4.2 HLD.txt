@@ -47,38 +47,26 @@ void loop() {
   // put your main code here, to run repeatedly:
   int VA1 = digitalRead(Pulsador_1);
   if (VA1 == 1) {
-    buzzon();
     servi.write(45);
     time();
-  }else{
-    buzzoff();
   }
 
   int VA2 = digitalRead(Pulsador_2);
   if (VA2 == 1) {
-    buzzon();
     servi.write(90);
     time();
-  }else{
-    buzzoff();
   }
 
   int VA3 = digitalRead(Pulsador_3);
   if (VA3 == 1) {
-    buzzon();
     servi.write(135);
     time();
-  }else{
-    buzzoff();
   }
 
   int VA4 = digitalRead(Pulsador_4);
   if (VA4 == 1) {
-    buzzon();
     servi.write(180);
     time();
-  }else{
-    buzzoff();
   }
 
   int VA5 = digitalRead(Pulsador_5);
