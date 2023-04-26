@@ -1,0 +1,109 @@
+/*Hallann Lázaro
+  2022227
+  Practica 5.1*/
+
+#include <Keypad.h>//Iserto libreria
+
+void display(int A,int B,int C,int D,int E,int F,int G){  //Creo una funcion para las variables de cada pin
+  digitalWrite(A0,A);//pin y variable A
+  digitalWrite(A1,B);//pin y variable B
+  digitalWrite(A2,C);//pin y variable C
+  digitalWrite(A3,D);//pin y variable D
+  digitalWrite(A4,E);//pin y variable E
+  digitalWrite(A5,F);//pin y variable F
+  digitalWrite(10,G);//pin y variable G
+}
+const byte FILAS=4;//Asignacion de valores de Filas
+const byte COLUMNAS=4;//Asignacion de valores de Columnas
+
+char FILAS_COLUMNAS[FILAS][COLUMNAS]={//Creacion de un char
+  {'1', '2', '3', 'A'},
+  {'4', '5', '6', 'B'},
+  {'7', '8', '9', 'C'},
+  {'*', '0', '#', 'D'}
+};
+byte rowPin[FILAS]={9,8,7,6};//Orden de los pines de las Filas
+byte colPin[COLUMNAS]={5,4,3,2};//Orden de las Columnas
+
+Keypad customKeypad = Keypad(makeKeymap(FILAS_COLUMNAS),rowPin,colPin,FILAS,COLUMNAS);//Asignacion de Keypad y condicion
+
+char digitos[1];//crecion de char1
+char mostrar;//crecion de char2
+byte i;//inicializacion de una variable que reconosca un Digito 
+
+void setup(){
+  Serial.begin(9600);
+  for (i=10; i<=10; i++){
+    pinMode(i, OUTPUT);
+  }
+  pinMode(A0, OUTPUT);
+  pinMode(A1, OUTPUT);
+  pinMode(A2, OUTPUT);
+  pinMode(A3, OUTPUT);
+  pinMode(A4, OUTPUT);
+  pinMode(A5, OUTPUT);
+  pinMode(10, OUTPUT);
+  pinMode(11, OUTPUT);
+}
+
+void loop(){//void loop
+  mostrar = customKeypad.getKey();//mostrar
+  digitos[0] = mostrar;//digitos
+  mostrarDisplay(digitos[0]);//Lo que mostrara el Display
+  if (mostrar){// if y condiciones
+    Serial.println(mostrar);//Mostat en el Monitor serial
+  }
+}
+
+void mostrarDisplay(char numeroA){//Creacion de una variable
+  switch(numeroA){//Creacion de un switch
+    case '0':
+      display(1,1,1,1,1,1,0);
+    break;
+    case '1':
+      display(0,1,1,0,0,0,0);
+    break;
+    case '2':
+      display(1,1,0,1,1,0,1);
+    break;
+    case '3':
+      display(1,1,1,1,0,0,1);
+    break;
+    case '4':
+      display(0,1,1,0,0,1,1);
+    break;
+    case '5':
+      display(1,0,1,1,0,1,1);
+    break;
+    case '6':
+      display(1,0,1,1,1,1,1);
+    break;
+    case '7':
+      display(1,1,1,0,0,0,0);
+    break;
+    case '8':
+      display(1,1,1,1,1,1,1);
+    break;
+    case '9':
+      display(1,1,1,0,0,1,1);
+    break;
+    case 'A':
+      display(1,1,1,0,1,1,1);
+    break;
+    case 'B':
+      display(0,0,1,1,1,1,1);
+    break;
+    case 'C':
+      display(1,0,0,1,1,1,0);
+    break;
+    case 'D':
+      display(0,1,1,1,1,0,1);
+    break;
+    case '*':
+      display(1,0,0,0,1,1,1);
+    break;
+    case '#':
+      display(1,0,0,1,1,1,1);
+    break;
+  }
+}
