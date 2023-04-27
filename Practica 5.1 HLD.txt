@@ -1,6 +1,6 @@
 /*Hallann Lázaro
   2022227
-  Practica 5.1*/
+  Práctica 5.1*/
 
 #include <Keypad.h>//Iserto libreria
 
@@ -32,11 +32,11 @@ char mostrar;//crecion de char2
 byte i;//inicializacion de una variable que reconosca un Digito 
 
 void setup(){
-  Serial.begin(9600);
+  Serial.begin(9600);//Inicio de monitor serial
   for (i=10; i<=10; i++){
     pinMode(i, OUTPUT);
   }
-  pinMode(A0, OUTPUT);
+  pinMode(A0, OUTPUT);//asignacionde 
   pinMode(A1, OUTPUT);
   pinMode(A2, OUTPUT);
   pinMode(A3, OUTPUT);
@@ -58,52 +58,52 @@ void loop(){//void loop
 void mostrarDisplay(char numeroA){//Creacion de una variable
   switch(numeroA){//Creacion de un switch
     case '0':
-      display(1,1,1,1,1,1,0);
+      display(1,1,1,1,1,1,0);//Secuencia de 0
     break;
     case '1':
-      display(0,1,1,0,0,0,0);
+      display(0,1,1,0,0,0,0);//Secuencia de 1
     break;
     case '2':
-      display(1,1,0,1,1,0,1);
+      display(1,1,0,1,1,0,1);//Secuencia de 2
     break;
     case '3':
-      display(1,1,1,1,0,0,1);
+      display(1,1,1,1,0,0,1);//Secuencia de 3
     break;
     case '4':
-      display(0,1,1,0,0,1,1);
+      display(0,1,1,0,0,1,1);//Secuencia de 4
     break;
     case '5':
-      display(1,0,1,1,0,1,1);
+      display(1,0,1,1,0,1,1);//Secuencia de 5
     break;
     case '6':
-      display(1,0,1,1,1,1,1);
+      display(1,0,1,1,1,1,1);//Secuencia de 6
     break;
     case '7':
-      display(1,1,1,0,0,0,0);
+      display(1,1,1,0,0,0,0);//Secuencia de 7
     break;
     case '8':
-      display(1,1,1,1,1,1,1);
+      display(1,1,1,1,1,1,1);//Secuencia de 8
     break;
     case '9':
-      display(1,1,1,0,0,1,1);
+      display(1,1,1,0,0,1,1);//Secuencia de 9
     break;
     case 'A':
-      display(1,1,1,0,1,1,1);
+      display(1,1,1,0,1,1,1);//Secuencia de A
     break;
     case 'B':
-      display(0,0,1,1,1,1,1);
+      display(0,0,1,1,1,1,1);//Secuencia de B
     break;
     case 'C':
-      display(1,0,0,1,1,1,0);
+      display(1,0,0,1,1,1,0);//Secuencia de C
     break;
     case 'D':
-      display(0,1,1,1,1,0,1);
+      display(0,1,1,1,1,0,1);//Secuencia de D
     break;
     case '*':
-      display(1,0,0,0,1,1,1);
+      display(1,0,0,0,1,1,1);//Secuencia de F
     break;
     case '#':
-      display(1,0,0,1,1,1,1);
+      display(1,0,0,1,1,1,1);//Secuencia de E
     break;
   }
 }
