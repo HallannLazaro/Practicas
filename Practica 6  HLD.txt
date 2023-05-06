@@ -1,6 +1,6 @@
 /*Hallann Lázaro
   2022227
-  Práctica 5.1*/
+  Práctica 6*/
 
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
@@ -8,17 +8,17 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
-#define BUZZER_PIN 7  
-#define ONE_WIRE_BUS 2   
-#define WATER_TEMP_PRECISION 12  
-#define WATERING_HOUR 0     
-#define WATERING_MINUTE 0  
-#define WATERING_DURATION 20 
+#define BUZZER_PIN 7 // Pin del sonido  
+#define ONE_WIRE_BUS 2 // Pin del temperatura  
+#define WATER_TEMP_PRECISION 12 // Parametro del sensor de temperatura 
+#define WATERING_HOUR 0 // Hora de riego
+#define WATERING_MINUTE 0  // minito de riego
+#define WATERING_DURATION 20 // Tiempo del riego en segundos
 
 int RELAY_PIN = 8;   // Pin del módulo rele
 int funcion = 0;
 
-// Inicializa los objetos para el RTC, la pantalla PantallaLCD y el sensor de temperatura
+// Inicializar objetos en RTC, LCD y sensor de temperatura
 
 RTC_DS1307 rtc;
 LiquidCrystal_I2C PantallaLCD(0x27, 16, 2);
@@ -26,18 +26,20 @@ OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
 
 void setup() {
-  pinMode(RELAY_PIN, OUTPUT);
-  pinMode(BUZZER_PIN, OUTPUT);
+  pinMode(RELAY_PIN, OUTPUT);//Asignacion de pines de salida
+  pinMode(BUZZER_PIN, OUTPUT);//Asignacion de pines de salida
   PantallaLCD.init();
   PantallaLCD.backlight();
   sensors.begin();
   rtc.begin();
-  if (!rtc.isrunning()) {
-    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+  if (!rtc.isrunning()) {//Creacion de if y condiciones
+    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));//condicionales
   }
 }
 
 void loop() {
+
+//funcionamiento de el sensor
   DateTime now = rtc.now();
   sensors.requestTemperatures();
   if(funcion<452){
@@ -48,15 +50,15 @@ void loop() {
     delay(50);
   	}
 
-  float waterTemp = sensors.getTempCByIndex(0);
+  float waterTemp = sensors.getTempCByIndex(0);//condiconales
   PantallaLCD.clear();
-  PantallaLCD.setCursor(0, 0);
-  PantallaLCD.print("Temper:");
+  PantallaLCD.setCursor(0, 0);//numerios visibles del LCD
+  PantallaLCD.print("Temper:");//Texto del LCD
   PantallaLCD.print(waterTemp);
-  PantallaLCD.setCursor(0, 1);
-  PantallaLCD.print("Tiempo: ");
+  PantallaLCD.setCursor(0, 1); //numerios visibles del LCD
+  PantallaLCD.print("Tiempo: ");//Texto del LCD
   PantallaLCD.print(now.hour(), DEC);
-  PantallaLCD.print(":");
+  PantallaLCD.print(":");//Texto del LCD
   PantallaLCD.print(now.minute(), DEC);
   delay(1000);
 
@@ -73,35 +75,114 @@ delay(50);
     PantallaLCD.setCursor(0, 0);
     PantallaLCD.print("Inicio de Riego");
     tone(BUZZER_PIN, 1000, 5000); 
-     digitalWrite(BUZZER_PIN, HIGH);
+    
+    digitalWrite(BUZZER_PIN, HIGH);//Asignacion de encendido
     delay(500);
-    digitalWrite(BUZZER_PIN, LOW);
+
+    digitalWrite(BUZZER_PIN, LOW);//Asignacion de apagado
     delay(500);
-    digitalWrite(BUZZER_PIN, HIGH);
+
+    digitalWrite(BUZZER_PIN, HIGH);//Asignacion de encendido
     delay(500);
-    digitalWrite(BUZZER_PIN, LOW);
+
+    digitalWrite(BUZZER_PIN, LOW);//Asignacion de apagado
     delay(500);
-    digitalWrite(BUZZER_PIN, HIGH);
+
+    digitalWrite(BUZZER_PIN, HIGH);//Asignacion de encendido
     delay(500);
-    digitalWrite(BUZZER_PIN, LOW);
+
+    digitalWrite(BUZZER_PIN, LOW);//Asignacion de apagado
     delay(500);
-    digitalWrite(BUZZER_PIN, HIGH);
+
+    digitalWrite(BUZZER_PIN, HIGH);//Asignacion de encendido
     delay(500);
-    digitalWrite(BUZZER_PIN, LOW);
+
+    digitalWrite(BUZZER_PIN, LOW);//Asignacion de apagado
     delay(500);
-    digitalWrite(BUZZER_PIN, HIGH);
+
+    digitalWrite(BUZZER_PIN, HIGH);//Asignacion de encendido
     delay(500);
-    digitalWrite(BUZZER_PIN, LOW);
+
+    digitalWrite(BUZZER_PIN, LOW);//Asignacion de apagado
     delay(500);
+
     PantallaLCD.clear();
     PantallaLCD.setCursor(0, 0);
-    PantallaLCD.print("Retomando...");
-    digitalWrite(RELAY_PIN, LOW);  
-    delay(WATERING_DURATION * 1000);
-    digitalWrite(RELAY_PIN, HIGH); 
+    PantallaLCD.print("Iniciando proc..");// Texto de LCD
+    digitalWrite(RELAY_PIN, LOW); //Asignacion de apagado
+    delay(WATERING_DURATION * 1000);//Tiempo de duracion
+    digitalWrite(RELAY_PIN, HIGH); //Asignacion de encendido
+    PantallaLCD.clear();
+    PantallaLCD.setCursor(0, 0);//numerios visibles del LCD
+    PantallaLCD.print("Completado");
+  }
+  delay(1000);
+}
+  float waterTemp = sensors.getTempCByIndex(0);//condiconales
+  PantallaLCD.clear();
+  PantallaLCD.setCursor(0, 0);//numerios visibles del LCD
+  PantallaLCD.print("Temper:");//Texto del LCD
+  PantallaLCD.print(waterTemp);
+  PantallaLCD.setCursor(0, 1); //numerios visibles del LCD
+  PantallaLCD.print("Tiempo: ");//Texto del LCD
+  PantallaLCD.print(now.hour(), DEC);
+  PantallaLCD.print(":");//Texto del LCD
+  PantallaLCD.print(now.minute(), DEC);
+  delay(1000);
+
+  if(funcion<452){
+  	digitalWrite(RELAY_PIN,HIGH);
+  	}
+  	else{
+  	digitalWrite(RELAY_PIN,LOW);
+  	}
+delay(50);
+    if (now.hour() == WATERING_HOUR && now.minute() == WATERING_MINUTE) {
+    delay(50);
     PantallaLCD.clear();
     PantallaLCD.setCursor(0, 0);
-    PantallaLCD.print("operacion teminada");
+    PantallaLCD.print("Inicio de Riego");
+    tone(BUZZER_PIN, 1000, 5000); 
+    
+    digitalWrite(BUZZER_PIN, HIGH);//Asignacion de encendido
+    delay(500);
+
+    digitalWrite(BUZZER_PIN, LOW);//Asignacion de apagado
+    delay(500);
+
+    digitalWrite(BUZZER_PIN, HIGH);//Asignacion de encendido
+    delay(500);
+
+    digitalWrite(BUZZER_PIN, LOW);//Asignacion de apagado
+    delay(500);
+
+    digitalWrite(BUZZER_PIN, HIGH);//Asignacion de encendido
+    delay(500);
+
+    digitalWrite(BUZZER_PIN, LOW);//Asignacion de apagado
+    delay(500);
+
+    digitalWrite(BUZZER_PIN, HIGH);//Asignacion de encendido
+    delay(500);
+
+    digitalWrite(BUZZER_PIN, LOW);//Asignacion de apagado
+    delay(500);
+
+    digitalWrite(BUZZER_PIN, HIGH);//Asignacion de encendido
+    delay(500);
+
+    digitalWrite(BUZZER_PIN, LOW);//Asignacion de apagado
+    delay(500);
+
+    PantallaLCD.clear();
+    PantallaLCD.setCursor(0, 0);
+    PantallaLCD.print("Iniciando proc..");// Texto de LCD
+    digitalWrite(RELAY_PIN, LOW); //Asignacion de apagado
+    delay(WATERING_DURATION * 1000);//Tiempo de duracion
+    digitalWrite(RELAY_PIN, HIGH); //Asignacion de encendido
+    PantallaLCD.clear();
+    PantallaLCD.setCursor(0, 0);//numerios visibles del LCD
+    PantallaLCD.print("Riego terminado");//Culmin del proceso
   }
   delay(1000);
 }
