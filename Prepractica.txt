@@ -1,0 +1,115 @@
+#include <Keypad.h>
+#include <LiquidCrystal_I2C.h>
+#include <Servo.h>
+
+#define Monitordetirmpo() delay(150)//Define el tiempo
+
+Servo servo1;
+
+LiquidCrystal_I2C PantallaLCD(0x27,16,2);
+
+const byte FILAS = 4;
+const byte COLUMNAS = 4;
+
+char keys[FILAS][COLUMNAS]={
+  {'1','2','3','A'},
+  {'4','5','6','B'},
+  {'7','8','9','C'},
+  {'*','0','#','D'}
+};
+
+char clave[7] = {'2','0','2','2','2','2','7'};
+char claveUsuario[7];
+
+
+
+byte pinesFilas[FILAS] = {9,8,7,6};
+byte pinesColumnas[COLUMNAS] = {5,4,3,2};
+
+Keypad teclado = Keypad(makeKeymap(keys),pinesFilas,pinesColumnas,FILAS,COLUMNAS);
+
+int cont = 0;
+int iden = 0;
+int con2 = 7;
+
+char Tecla;
+
+void setup() {
+Serial.begin(9600);
+PantallaLCD.init(); // inicializar pantalla
+PantallaLCD.backlight(); //luz de fondo
+PantallaLCD.clear();
+servo1.attach(A0);
+ 
+}
+
+void loop() {
+
+PantallaLCD.setCursor(0,0);
+PantallaLCD.print("INGRESE LA CLAVE");
+ 
+Tecla = teclado.getKey();
+
+
+if(Tecla){
+  claveUsuario[cont] = Tecla;
+  cont++;
+  
+  
+  PantallaLCD.setCursor(con2,1);
+  PantallaLCD.print("*");
+  con2++;
+  
+  
+
+if(cont == 7){
+  
+  for(int i = 0; i<=4;i++){
+    
+    if(claveUsuario[i] != clave[i]){
+      iden = 1;
+    }
+    }
+    
+   if(iden ==1){
+    PantallaLCD.clear();
+    PantallaLCD.setCursor(5,0);
+    PantallaLCD.print("CLAVE");
+    PantallaLCD.setCursor(3,1);
+    PantallaLCD.print("INCORRECTA"); 
+    servo1.write(0);
+    Monitordetirmpo();
+    delay(3000);
+
+    cont = 0;
+    iden = 0;
+    con2 =5;
+     PantallaLCD.clear();
+  }
+
+
+    }
+
+  else{
+    PantallaLCD.clear();
+    PantallaLCD.setCursor(5,0);
+    PantallaLCD.print("CLAVE");
+    PantallaLCD.setCursor(4,1);
+    PantallaLCD.print("CORRECTA"); 
+    servo1.write(105);
+    Monitordetirmpo();
+    delay(3000);
+
+    con2 =5;
+    cont= 0;
+      PantallaLCD.clear();
+  }
+
+ 
+  
+}
+  
+  }
+     
+
+
