@@ -1,0 +1,206 @@
+/*Hallann Lázaro
+2022227
+Práctica 1*/
+
+#include <LiquidCrystal_I2C.h>
+
+#define Trig 4
+#define echo 5
+#define buzzerPin 10
+#define Bomba 9
+
+byte customChar[] = {
+  B00100,
+  B01110,
+  B01110,
+  B11111,
+  B11111,
+  B11111,
+  B01110,
+  B00000
+};
+
+const float velocidad = 0.034;
+float time;
+float distancia;
+
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup() {
+  pinMode(Bomba,OUTPUT);
+  pinMode(Trig, OUTPUT);
+  pinMode(echo, INPUT);
+  lcd.begin(16, 2);
+  lcd.backlight();
+  lcd.setCursor(0, 0);// Mensaje de inicio
+  lcd.print("Porcentaje de");
+  lcd.setCursor(0, 1);
+  lcd.print("agua");
+  delay(2000);
+  attachInterrupt(digitalPinToInterrupt(2),Inicio,HIGH);
+  attachInterrupt(digitalPinToInterrupt(3),Cierre,HIGH);
+
+
+  lcd.createChar(0, customChar);
+  lcd.home();
+  
+  Serial.begin(9600);
+  
+}
+
+void loop() {
+
+  digitalWrite(Trig, HIGH);
+   delay(100);
+   digitalWrite(Trig, LOW);
+  time = pulseIn(echo, HIGH);
+  distancia = time*velocidad/2;
+   Serial.print(distancia);
+    Serial.println("cm");
+  if(distancia<5){
+      activateAlarm();
+  }
+  if(distancia<13){
+      parametros();
+  }
+  if(distancia<10){
+      parametros1();
+  }
+  if(distancia<8){
+      parametros2();
+  }
+  if(distancia<5){
+      parametros3();
+  }
+  if(distancia<4){
+      parametros4();
+  }
+}
+
+void activateAlarm() {
+  tone(buzzerPin, 1915);
+  delay(500);
+  tone(buzzerPin, 1700);
+  delay(500);
+  tone(buzzerPin, 1519);
+  delay(500);
+  tone(buzzerPin, 1432);
+  delay(500);
+  tone(buzzerPin, 1275);
+  delay(500);
+  tone(buzzerPin, 1136);
+  delay(500);
+  tone(buzzerPin, 1014);
+  delay(500);
+  tone(buzzerPin, 956);
+  delay(500);
+  noTone(buzzerPin);
+}
+
+void Inicio() {
+  digitalWrite(Bomba, LOW);
+  noTone(buzzerPin);
+}
+void Cierre() {
+  digitalWrite(Bomba, HIGH);
+  tone(buzzerPin, 1000);
+}
+
+void parametros() {
+
+  lcd.setCursor(0, 1);
+  lcd.write(0 );
+  delay(500);
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("* Estado *");
+
+}
+void parametros1() {
+
+  lcd.setCursor(0, 1);
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  delay(500);
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("* Estado *");
+}
+void parametros2() {
+
+  lcd.setCursor(0, 1);
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  delay(500);
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("* Estado *");
+}
+void parametros3() {
+
+  lcd.setCursor(0, 1);
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  delay(500);
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("* Estado *");
+}
+void parametros4() {
+
+  lcd.setCursor(0, 1);
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  lcd.write(0 );
+  delay(10000);
+  lcd.setCursor(0, 0);
+  lcd.print("* Estado *");
+  if (parametros4){
+   setup();
+    }
+}
