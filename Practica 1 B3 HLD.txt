@@ -1,0 +1,62 @@
+/*Hallann Lázaro
+2022227
+Práctica 1*/
+
+#include <LiquidCrystal_I2C.h>
+
+#define Trig 4
+#define echo 5
+#define buzzerPin 10
+
+const float velocidad = 0.034;
+float time;
+float distancia;
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup() {
+
+  pinMode(Trig, OUTPUT);
+  pinMode(echo, INPUT);
+  lcd.begin(16, 2);
+  lcd.backlight();
+  lcd.setCursor(0, 0);// Mensaje de inicio
+  lcd.print("Porcentaje de");
+  lcd.setCursor(0, 1);
+  lcd.print("agua");
+  delay(2000);
+  Serial.begin(9600);
+  
+}
+
+void loop() {
+
+  digitalWrite(Trig, HIGH);
+   delay(100);
+   digitalWrite(Trig, LOW);
+  time = pulseIn(echo, HIGH);
+  distancia = time*velocidad/2;
+   Serial.print(distancia);
+    Serial.println("cm");
+  if(distancia<10){
+      activateAlarm();
+  }
+  if(distancia<13){
+      parametros();
+  }
+}
+
+void activateAlarm() {
+  tone(buzzerPin, 1000);
+  delay(500);
+  noTone(buzzerPin);
+}
+
+void parametros() {
+  lcd.setCursor(0, 0);
+  lcd.print("* Estado *");
+  lcd.setCursor(0, 1);
+  lcd.print("▀");
+  delay(500);
+}
+
