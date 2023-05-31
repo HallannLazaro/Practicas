@@ -2,14 +2,14 @@
 2022227
 Práctica 1*/
 
-#include <LiquidCrystal_I2C.h>
+#include <LiquidCrystal_I2C.h>//Asignacion de libreria
 
-#define Trig 4
-#define echo 5
-#define buzzerPin 10
-#define Bomba 9
+#define Trig 4//defino pin Trig
+#define echo 5//defino pin echo
+#define buzzerPin 10//defino pin del Buzzer
+#define Bomba 9//defino pin bonba
 
-byte customChar[] = {
+byte customChar[] = {//Caracter de lcd
   B00100,
   B01110,
   B01110,
@@ -20,187 +20,187 @@ byte customChar[] = {
   B00000
 };
 
-const float velocidad = 0.034;
-float time;
-float distancia;
+const float velocidad = 0.034;//Creacion de los parametros de Velocidad estandar
+float time;//Variable de time
+float distancia;//Variable de distancia
 
 
-LiquidCrystal_I2C lcd(0x27, 16, 2);
+LiquidCrystal_I2C lcd(0x27, 16, 2);//Parametros de nuestra LCD
 
-void setup() {
-  pinMode(Bomba,OUTPUT);
-  pinMode(Trig, OUTPUT);
-  pinMode(echo, INPUT);
-  lcd.begin(16, 2);
+void setup() {//void setup
+  pinMode(Bomba,OUTPUT);//Estado de Bonba
+  pinMode(Trig, OUTPUT);//Esrado deTrig
+  pinMode(echo, INPUT);//Estado de echo
+  lcd.begin(16, 2);//Parametro de lcd
   lcd.backlight();
   lcd.setCursor(0, 0);// Mensaje de inicio
-  lcd.print("Porcentaje de");
-  lcd.setCursor(0, 1);
-  lcd.print("agua");
-  delay(2000);
-  attachInterrupt(digitalPinToInterrupt(2),Inicio,HIGH);
-  attachInterrupt(digitalPinToInterrupt(3),Cierre,HIGH);
+  lcd.print("Porcentaje de");//Texto a mostrar
+  lcd.setCursor(0, 1);//pocicion en LCD
+  lcd.print("agua");//Texto a mostrar
+  delay(2000);//tiempo
+  attachInterrupt(digitalPinToInterrupt(2),Inicio,HIGH);//Iniciliciacion de Interrupcion 1
+  attachInterrupt(digitalPinToInterrupt(3),Cierre,HIGH);//Iniciliciacion de Interrupcion 2
 
 
-  lcd.createChar(0, customChar);
-  lcd.home();
+  lcd.createChar(0, customChar);//parametros de lcd
+  lcd.home();//parametros de lcd
   
-  Serial.begin(9600);
+  Serial.begin(9600);//inicialisacion del monitor
   
 }
 
-void loop() {
+void loop() {//void loop
 
-  digitalWrite(Trig, HIGH);
-   delay(100);
-   digitalWrite(Trig, LOW);
-  time = pulseIn(echo, HIGH);
-  distancia = time*velocidad/2;
-   Serial.print(distancia);
-    Serial.println("cm");
-  if(distancia<5){
-      activateAlarm();
+  digitalWrite(Trig, HIGH);//accion de mostrar
+   delay(100);//tiempo
+   digitalWrite(Trig, LOW);//accion de mostrar
+  time = pulseIn(echo, HIGH);//accion de mostrar
+  distancia = time*velocidad/2;//establecimientos de parametro
+   Serial.print(distancia);//accion de mostrar
+    Serial.println("cm");//accion de mostrar
+  if(distancia<5){//inicialisacion de if
+      activateAlarm();//llamado de funciones
   }
-  if(distancia<13){
-      parametros();
+  if(distancia<13){//inicialisacion de if
+      parametros();//llamado de funciones
   }
-  if(distancia<10){
-      parametros1();
+  if(distancia<10){//inicialisacion de if
+      parametros1();//llamado de funciones
   }
-  if(distancia<8){
-      parametros2();
+  if(distancia<8){//inicialisacion de if
+      parametros2();//llamado de funciones
   }
-  if(distancia<5){
-      parametros3();
+  if(distancia<5){//inicialisacion de if
+      parametros3();//llamado de funciones
   }
-  if(distancia<4){
-      parametros4();
+  if(distancia<4){//inicialisacion de if
+      parametros4();//llamado de funciones
   }
 }
 
-void activateAlarm() {
-  tone(buzzerPin, 1915);
-  delay(500);
-  tone(buzzerPin, 1700);
-  delay(500);
-  tone(buzzerPin, 1519);
-  delay(500);
-  tone(buzzerPin, 1432);
-  delay(500);
-  tone(buzzerPin, 1275);
-  delay(500);
-  tone(buzzerPin, 1136);
-  delay(500);
-  tone(buzzerPin, 1014);
-  delay(500);
-  tone(buzzerPin, 956);
-  delay(500);
-  noTone(buzzerPin);
+void activateAlarm() {//Inicialisacion de la alrma
+  tone(buzzerPin, 1915);//parametro de tono
+  delay(500);//Tiempo
+  tone(buzzerPin, 1700);//parametro de tono
+  delay(500);//Tiempo
+  tone(buzzerPin, 1519);//parametro de tono
+  delay(500);//Tiempo
+  tone(buzzerPin, 1432);//parametro de tono
+  delay(500);//Tiempo
+  tone(buzzerPin, 1275);//parametro de tono
+  delay(500);//Tiempo
+  tone(buzzerPin, 1136);//parametro de tono
+  delay(500);//Tiempo
+  tone(buzzerPin, 1014);//parametro de tono
+  delay(500);//Tiempo
+  tone(buzzerPin, 956);//parametro de tono
+  delay(500);//Tiempo
+  noTone(buzzerPin);//Apagado de buzzer
 }
 
-void Inicio() {
-  digitalWrite(Bomba, LOW);
-  noTone(buzzerPin);
+void Inicio() {//instrucciones de inicio
+  digitalWrite(Bomba, LOW);//instrucciones de estaado
+  noTone(buzzerPin);//apagado de buzzer
 }
-void Cierre() {
-  digitalWrite(Bomba, HIGH);
-  tone(buzzerPin, 1000);
+void Cierre() {//instrucciones de cierre
+  digitalWrite(Bomba, HIGH);//instrucciones de estaado
+  tone(buzzerPin, 1000);//ensendido de buzzer
 }
 
-void parametros() {
+void parametros() {//instrucciones de parametros
 
-  lcd.setCursor(0, 1);
+  lcd.setCursor(0, 1);//posicion de caracteres 
   lcd.write(0 );
-  delay(500);
+  delay(500);//Tiempo
   lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print("* Estado *");
+  lcd.setCursor(0, 0);//posicion de caracteres
+  lcd.print("* Estado *");//Texto a mostrar
 
 }
-void parametros1() {
+void parametros1() {//instrucciones de parametros1
 
-  lcd.setCursor(0, 1);
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  delay(500);
+  lcd.setCursor(0, 1);//posicion de caracteres
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  delay(500);//Tiempo
   lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print("* Estado *");
+  lcd.setCursor(0, 0);//posicion de caracteres
+  lcd.print("* Estado *");//Texto a mostrar
 }
-void parametros2() {
+void parametros2() {//instrucciones de parametros2
 
-  lcd.setCursor(0, 1);
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  delay(500);
+  lcd.setCursor(0, 1);//posicion de caracteres
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  delay(500);//Tiempo
   lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print("* Estado *");
+  lcd.setCursor(0, 0);//posicion de caracteres
+  lcd.print("* Estado *");//Texto a mostrar
 }
-void parametros3() {
+void parametros3() {//instrucciones de parametros3
 
-  lcd.setCursor(0, 1);
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  delay(500);
+  lcd.setCursor(0, 1);//posicion de caracteres
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  delay(500);//Tiempo
   lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print("* Estado *");
+  lcd.setCursor(0, 0);//posicion de caracteres
+  lcd.print("* Estado *");//Texto a mostrar
 }
-void parametros4() {
+void parametros4() {//instrucciones de parametros4
 
-  lcd.setCursor(0, 1);
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  lcd.write(0 );
-  delay(10000);
-  lcd.setCursor(0, 0);
-  lcd.print("* Estado *");
-  if (parametros4){
+  lcd.setCursor(0, 1);//posicion de caracteres
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  lcd.write(0 );//caracter a mostrar 
+  delay(10000);//Tiempo
+  lcd.setCursor(0, 0);//posicion de caracteres
+  lcd.print("* Estado *");//Texto a mostrar
+  if (parametros4){//inicialisacion de if
    setup();
     }
 }
