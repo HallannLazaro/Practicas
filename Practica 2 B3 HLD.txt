@@ -1,0 +1,169 @@
+/*Hallann Lázaro
+2022227
+Práctica 2*/
+
+#include <Servo.h>//Librerias
+#include <Wire.h>//Libreria
+#include <LiquidCrystal_I2C.h>//Libreria
+
+#define buzzerpin 8//definicion de Buzzer
+#define Pul1 7//definicion de un pulsador
+#define Pul2 6//definicion de un pulsador
+#define Pul3 5//definicion de un pulsador
+#define Pul4 4//definicion de un pulsador
+#define Pul5 3//definicion de un pulsador
+
+const int potPin1 = A0;// Define los pines de los potenciómetros y los servomotores
+const int potPin2 = A1;// Define los pines de los potenciómetros y los servomotores
+const int potPin3 = A2;// Define los pines de los potenciómetros y los servomotores
+
+const int servoPin1 = 9;// Define los pines de los potenciómetros y los servomotores 1
+const int servoPin2 = 10;// Define los pines de los potenciómetros y los servomotores 2
+const int servoPin3 = 11;// Define los pines de los potenciómetros y los servomotores 3
+
+const int c=261; //Frecuencia de nota
+const int d=294;//Frecuencia de nota
+const int e=329;//Frecuencia de nota
+const int f=349;//Frecuencia de nota
+const int g=391;//Frecuencia de nota
+const int gS=415;//Frecuencia de nota
+const int a=440;//Frecuencia de nota
+const int aS=455;//Frecuencia de nota
+const int b=466;//Frecuencia de nota
+const int cH=523;//Frecuencia de nota
+const int cSH=554;//Frecuencia de nota
+const int dH=587;//Frecuencia de nota
+const int dSH=622;//Frecuencia de nota
+const int eH=659;//Frecuencia de nota
+const int fH=698;//Frecuencia de nota
+const int fSH=740;//Frecuencia de nota
+const int gH=783;//Frecuencia de nota
+const int gSH=830;//Frecuencia de nota
+const int aH=880;//Frecuencia de nota
+bool inter =0;
+
+Servo servo1;// Crea objetos Servo para controlar los servomotores
+Servo servo2;// Crea objetos Servo para controlar los servomotores
+Servo servo3;// Crea objetos Servo para controlar los servomotores
+
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);// Inicializa el objeto LiquidCrystal_I2C para la pantalla LCD
+ 
+
+void setup() {//void setup
+  pinMode(Pul1, INPUT);//Determino funcionamiento de entrada
+  pinMode(Pul2, INPUT);//Determino funcionamiento de entrada
+  pinMode(Pul3, INPUT);//Determino funcionamiento de entrada
+  pinMode(Pul4, INPUT);//Determino funcionamiento de entrada
+  pinMode(Pul5, INPUT);//Determino funcionamiento de entrada
+  
+
+  
+  
+  servo1.attach(servoPin1);// Inicializa los servomotores
+  servo2.attach(servoPin2);// Inicializa los servomotores
+  servo3.attach(servoPin3);// Inicializa los servomotores
+  attachInterrupt(digitalPinToInterrupt(3) , Interrupcion, FALLING);//Realizo una interrupcion
+  
+  Wire.begin();// Inicializa la comunicación I2C
+  lcd.backlight();// Encender la retroiluminación de la LCD
+
+ 
+  lcd.begin(16, 2); // Inicializa la pantalla LCD
+  lcd.print("Ser1:");//ingreso texto
+  lcd.setCursor(0, 1);//determino pocicion 
+  lcd.print("Ser2:");//ingreso texto
+  lcd.setCursor(9, 1);//determino pocicion 
+  lcd.print("Ser3:");//ingreso texto
+}
+
+void loop() {
+
+  int potValue1 = analogRead(potPin1); // Lee los valores de los potenciómetros
+  int potValue2 = analogRead(potPin2);// Lee los valores de los potenciómetros
+  int potValue3 = analogRead(potPin3);// Lee los valores de los potenciómetros
+
+  
+  int servoAngle1 = map(potValue1, 0, 1023, 0, 180);// Mapea los valores de los potenciómetros a ángulos para los servomotores
+  int servoAngle2 = map(potValue2, 0, 1023, 0, 180);// Mapea los valores de los potenciómetros a ángulos para los servomotores
+  int servoAngle3 = map(potValue3, 0, 1023, 0, 180);// Mapea los valores de los potenciómetros a ángulos para los servomotores
+
+  
+  servo1.write(servoAngle1);// Mueve los servomotores a los ángulos correspondientes
+  servo2.write(servoAngle2);// Mueve los servomotores a los ángulos correspondientes
+  servo3.write(servoAngle3);// Mueve los servomotores a los ángulos correspondientes
+
+  
+  lcd.setCursor(5, 0);// determina pocicion 
+  lcd.print(servoAngle1);// Actualiza los valores mostrados en la pantalla LCD
+  lcd.setCursor(5, 1);// determina pocicion 
+  lcd.print(servoAngle2);// Actualiza los valores mostrados en la pantalla LCD
+  lcd.setCursor(14, 1);// determina pocicion 
+  lcd.print(servoAngle3);// Actualiza los valores mostrados en la pantalla LCD
+
+  
+  delay(2);// Espera un breve período de tiempo antes de repetir el bucle
+
+  if(inter == 1){//creacion de if y parametro a cumplir 
+  servo1.write(0);
+  servo2.write(0);
+  servo3.write(0);
+  Zumbador();
+  delay(500);
+  inter = 0;
+  }
+
+  if(digitalRead(Pul1)== 0){//creacion de if y parametro a cumplir 
+    servo1.write(0);//Instrucciones
+    servo2.write(20);//Instrucciones
+    servo3.write(90);//Instrucciones
+    delay(5000);//Tiempo de espera
+  }
+  if(digitalRead(Pul2)== 0){//creacion de if y parametro a cumplir 
+    servo1.write(80);//Instrucciones
+    servo2.write(20);//Instrucciones
+    servo3.write(120);//Instrucciones
+    delay(5000);//Tiempo de espera
+  }
+  if(digitalRead(Pul3)== 0){//creacion de if y parametro a cumplir 
+    servo1.write(0);//Instrucciones
+    servo2.write(0);//Instrucciones
+    servo3.write(10);//Instrucciones
+    delay(5000);//Tiempo de espera
+  }
+  if(digitalRead(Pul4)== 0){//creacion de if y parametro a cumplir 
+    servo1.write(50);//Instrucciones
+    servo2.write(80);//Instrucciones
+    servo3.write(12);//Instrucciones
+    delay(5000);//Tiempo de espera
+  }
+  
+}
+
+void Zumbador(){//creo la melodia de el buzzer
+  tone(buzzerpin, a, 500);//nota y frecuencia
+  delay(500+50);//tiempo
+  tone(buzzerpin, a, 500);//nota y frecuencia
+  delay(500+50);  //tiempo   
+  tone(buzzerpin, a, 500); //nota y frecuencia
+  delay(500+50);//tiempo
+  tone(buzzerpin, f, 350);  //nota y frecuencia
+  delay(350+50);//tiempo
+  tone(buzzerpin, cH, 150);//nota y frecuencia
+  delay(150+50); //tiempo
+    
+  tone(buzzerpin, a, 500);//nota y frecuencia
+  delay(500+50);//tiempo
+  tone(buzzerpin, f, 350);//nota y frecuencia
+  delay(350+50);//tiempo
+  tone(buzzerpin, cH, 150);//nota y frecuencia
+  delay(150+50);//tiempo
+  tone(buzzerpin, a, 1000);//nota y frecuencia   
+  delay(1000+50);//tiempo
+  noTone(buzzerpin);//cierre de buzzer
+
+}
+
+void Interrupcion(){//instrucciones de interrupcio
+  inter = 1;//instruccion de cambio
+}
