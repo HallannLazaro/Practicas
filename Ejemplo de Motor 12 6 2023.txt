@@ -1,0 +1,18 @@
+#include <Stepper.h>
+const int pasos_T = 2048;
+Stepper Motor(pasos_T, 8, 10, 9, 11);
+
+
+void setup() {
+  Motor.setSpeed(20);
+
+}
+
+void loop() {
+  
+  Motor.step(pasos_T);
+  delay(100);
+  Motor.step(-pasos_T);
+  delay(100);
+
+}
