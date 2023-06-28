@@ -52,6 +52,7 @@ const int led2 = 5;//creacion de variable para led2
 const int led3 = 6;//creacion de variable para led3
 const int led4 = 7;//creacion de variable para led4
 int valor;
+int valorluces;
 
 char lecturas = 0;//creacion de variable para lectura
 bool estado = 0;//creacion de variable para tipo de estado
@@ -80,6 +81,7 @@ servo.attach(8);//asignacion y inicializacion de servo
 void loop() {
 
   movimiento();//asigancion de instrucciones
+  cambios();//asigancion de instrucciones
 
 
   if(sw.available()>0){//creacion de condiciones en if
@@ -174,6 +176,30 @@ void movimiento(){//creacoin de inst
    valor = sw.read();//asigancion de instrucciones de mapeo
    Serial.println(valor);//asigancion de instrucciones de imprentacion
    servo.write(valor);//asigancion de instrucciones ejecucion 
+  }
+}
+
+void cambios(){//se crea la variable para los cambios en las leds
+  if (sw.available() > 0){//que si el bluetoo es mayor que cero
+  valorluces = sw.read();//valor_luces sea a lee el bluetoo
+  Serial.println(valorluces);//imprima el valor_luces
+
+  if(valorluces >= 190){//si luces es mayor e igual a 190
+  digitalWrite(led1,HIGH);//este encienda la led1
+  }
+
+  if(valorluces >= 200){//si luces es mayor e igual a 200
+  digitalWrite(led2,HIGH);//este encienda la led2
+  }
+
+  if(valorluces >= 215)//si luces es mayor e igual a 215
+  {
+  digitalWrite(led3,HIGH);//este encienda la led3
+  }
+  if(valorluces >= 235)//si luces es mayor e igual a 235
+  {
+  digitalWrite(led4,HIGH);//este encienda la led4
+   } 
   }
 }
 
