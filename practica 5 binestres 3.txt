@@ -1,0 +1,86 @@
+/*Hallann Lázaro
+2022227
+Práctica 5 bimestres 3*/
+
+
+#include <LedControl.h>//Se incluye libreria
+
+LedControl lc=LedControl(11,13,10,1);//parametros de matriz led
+#define demora 1//definir tiempo
+
+byte Fuego[8]= {//asignacion de parametros
+  B0010000,//deliniamientos de la figura
+  B0111000,
+  B1111100,
+  B1111100,
+  B1111100,
+  B1111100,
+  B0111000,
+  B0000000
+
+  };
+
+byte Nada[8]= {//asignacion de parametros
+  B0000000,//deliniamientos del vacio 
+  B0000000,
+  B0000000,
+  B0000000,
+  B0000000,
+  B0000000,
+  B0000000,
+  B0000000
+
+  };
+
+int valor;//creacion de una variable
+int buzzer = 2;//creacion de una variable de buzzer
+
+void setup() {//iincializacion
+  Serial.begin(9600);//inicializacion de el monitor 
+  pinMode(buzzer, OUTPUT);//determinamos estado del pin
+  lc.shutdown(0, false);//specificaciones de la matriz led
+  lc.setIntensity(0, 8);//specificaciones de la matriz led
+  lc.clearDisplay(0);//specificaciones de la matriz led
+
+}
+
+void loop() {
+  valor = analogRead(A0);//asignacion de estado de analisis
+  Serial.println(valor);//muestreo de los valores optenidos 
+  if (valor > 850){//ctreacion de un if
+    activateAlarm();//activacion de el buzzer
+    mostrar_f();//activacion de el la figurra 
+  }  else {//un else
+     offAlarm();//apagado de el buzzer
+     mostrar_n();//apagdo de matriz led
+  }
+
+}
+
+void mostrar_f(){			// funcion mostrar_f
+  for (int i = 0; i < 8; i++) 		// bucle itera 8 veces por el array 
+  {
+    lc.setRow(0,i,Fuego[i]);		// establece fila con valor de array uno en misma posicion
+
+  }
+}
+
+void mostrar_n(){			// funcion mostrar_n
+  for (int i = 0; i < 8; i++) 		// bucle itera 8 veces por el array 
+  {
+    lc.setRow(0,i,Nada[i]);		// establece fila con valor de array uno en misma posicion
+
+  }
+}
+
+void activateAlarm() {//funcion buzzer
+  tone(buzzer, 1000);//tono de buzzer
+  delay(500);//tiempo del buzzer
+  noTone(buzzer);//no tone
+}
+
+void offAlarm() {//funcion buzzer apagado
+  noTone(buzzer);//buzzer apagado
+  delay(500);//tiempo 
+}
+
