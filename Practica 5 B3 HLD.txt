@@ -21,6 +21,54 @@ byte Fuego[8]= {//asignacion de parametros
 
   };
 
+byte H[8]= {//asignacion de parametros
+  B1000100,//deliniamientos de la figura
+  B1000100,
+  B1000100,
+  B1111100,
+  B1000100,
+  B1000100,
+  B1000100,
+  B1000100
+
+  };
+
+byte A[8]= {//asignacion de parametros
+  B1111100,//deliniamientos de la figura
+  B1000100,
+  B1000100,
+  B1111100,
+  B1000100,
+  B1000100,
+  B1000100,
+  B1000100
+
+  };
+
+byte L[8]= {//asignacion de parametros
+  B1000000,
+  B1000000,
+  B1000000,
+  B1000000,
+  B1000000,
+  B1000000,
+  B1000000,
+  B1111100
+
+  };
+
+byte N[8]= {//asignacion de parametros
+  B1000000,
+  B1111100,
+  B1000100,
+  B1000100,
+  B1000100,
+  B1000100,
+  B1000100,
+  B1000100
+
+  };
+
 byte Nada[8]= {//asignacion de parametros
   B0000000,//deliniamientos del vacio 
   B0000000,
@@ -52,6 +100,12 @@ void loop() {
   valor = analogRead(A0);//asignacion de estado de analisis
   Serial.println(valor);//muestreo de los valores optenidos 
   if (tempo == 1){//ctreacion de un if
+    mostrar_H();
+    mostrar_A();
+    mostrar_L();
+    mostrar_L();
+    mostrar_A();
+    mostrar_N();
     activateAlarm();//activacion de el buzzer
     mostrar_f();//activacion de el la figurra 
   }  else {//un else
@@ -68,6 +122,39 @@ void mostrar_f(){			// funcion mostrar_f
 
   }
 }
+
+void mostrar_H(){			// funcion mostrar_H
+  for (int i = 0; i < 8; i++) 		// bucle itera 8 veces por el array 
+  {
+    lc.setRow(0,i,H[i]);		// establece fila con valor de array uno en misma posicion
+
+  }
+}
+
+void mostrar_A(){			// funcion mostrar_A
+  for (int i = 0; i < 8; i++) 		// bucle itera 8 veces por el array 
+  {
+    lc.setRow(0,i,A[i]);		// establece fila con valor de array uno en misma posicion
+
+  }
+}
+
+void mostrar_L(){			// funcion mostrar_A
+  for (int i = 0; i < 8; i++) 		// bucle itera 8 veces por el array 
+  {
+    lc.setRow(0,i,L[i]);		// establece fila con valor de array uno en misma posicion
+
+  }
+}
+
+void mostrar_N(){			// funcion mostrar_A
+  for (int i = 0; i < 8; i++) 		// bucle itera 8 veces por el array 
+  {
+    lc.setRow(0,i,N[i]);		// establece fila con valor de array uno en misma posicion
+
+  }
+}
+
 
 void mostrar_n(){			// funcion mostrar_n
   for (int i = 0; i < 8; i++) 		// bucle itera 8 veces por el array 
