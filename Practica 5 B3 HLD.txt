@@ -100,12 +100,12 @@ void loop() {
   valor = analogRead(A0);//asignacion de estado de analisis
   Serial.println(valor);//muestreo de los valores optenidos 
   if (tempo == 1){//ctreacion de un if
-    mostrar_H();
-    mostrar_A();
-    mostrar_L();
-    mostrar_L();
-    mostrar_A();
-    mostrar_N();
+    mostrar_H();//asignacion
+    mostrar_A();//asignacion
+    mostrar_L();//asignacion
+    mostrar_L();//asignacion
+    mostrar_A();//asignacion
+    mostrar_N();//asignacion
     activateAlarm();//activacion de el buzzer
     mostrar_f();//activacion de el la figurra 
   }  else {//un else
@@ -139,7 +139,7 @@ void mostrar_A(){			// funcion mostrar_A
   }
 }
 
-void mostrar_L(){			// funcion mostrar_A
+void mostrar_L(){			// funcion mostrar_L
   for (int i = 0; i < 8; i++) 		// bucle itera 8 veces por el array 
   {
     lc.setRow(0,i,L[i]);		// establece fila con valor de array uno en misma posicion
@@ -147,7 +147,7 @@ void mostrar_L(){			// funcion mostrar_A
   }
 }
 
-void mostrar_N(){			// funcion mostrar_A
+void mostrar_N(){			// funcion mostrar_N
   for (int i = 0; i < 8; i++) 		// bucle itera 8 veces por el array 
   {
     lc.setRow(0,i,N[i]);		// establece fila con valor de array uno en misma posicion
