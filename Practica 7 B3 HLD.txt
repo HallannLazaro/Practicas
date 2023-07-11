@@ -1,3 +1,7 @@
+/*Hallann Lázaro
+2022227
+Práctica 7.2 bimestres 3*/
+
 #include <SPI.h>			// incluye libreria bus SPI
 #include <MFRC522.h>			// incluye libreria especifica para MFRC522
 #include <LiquidCrystal_I2C.h>
