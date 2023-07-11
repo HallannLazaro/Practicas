@@ -64,12 +64,10 @@ void loop() {
             PantallaLCD.setCursor(0, 1);
             PantallaLCD.print("Usuario 1");	// si retorna verdadero muestra texto bienvenida
             activaled1();
-            activateAlarm();//activacion de el buzzer
-            activaledoff();
             servo.write(360);
-            delay(5000);
+            activateAlarm();//activacion de el buzzer
             servo.write(0);
-           
+            activaledoff();           
             PantallaLCD.clear();
           }		
             
@@ -80,8 +78,10 @@ void loop() {
             PantallaLCD.setCursor(0, 1);
             PantallaLCD.print("Usuario 2");	// si retorna verdadero muestra texto bienvenida
             activaled1();
+            servo.write(360);
             activateAlarm();//activacion de el buzzer
-            activaledoff();
+            servo.write(0);
+            activaledoff();           
             PantallaLCD.clear();
 
           }	
@@ -93,8 +93,10 @@ void loop() {
             PantallaLCD.setCursor(0, 1);
             PantallaLCD.print("Usuario 3");	// si retorna verdadero muestra texto bienvenida
             activaled1();
+            servo.write(360);
             activateAlarm();//activacion de el buzzer
-            activaledoff();
+            servo.write(0);
+            activaledoff();           
             PantallaLCD.clear();
           }
             
