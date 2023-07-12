@@ -1,0 +1,81 @@
+/*Hallann Lázaro
+2022227
+Práctica 7.1 bimestres 3*/
+
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+int voltage = 2;// Pines de los pulsadores para cambiar entre modos
+#define amperaje 3// Pines de los pulsadores para cambiar entre modos
+#define pindevol A0// Pines del sensor de voltaje
+#define referencia 5.0 // Voltaje de referencia utilizado para el sensor de voltaje
+#define SCL A5// Pines de A5
+#define SDA A4// Pines de A4
+
+#define CURRENT_SENSOR_PIN A1// Pines del sensor de corriente
+#define CURRENT_REFERENCE 2.5 // Corriente de referencia utilizada para el sensor de corriente
+#define ACS712_SENSITIVITY 0.185 // Sensibilidad del sensor ACS712 en mV/A
+int lectura = 0;
+int lectura2 = 0;
+
+#define LCD_ADDRESS 0x27// Dirección I2C de la pantalla LCD
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup() {
+  pinMode(voltage, INPUT_PULLUP);//inicializacion
+  pinMode(amperaje, INPUT_PULLUP);//inicializacion
+  
+  lcd.clear();//Linpiesa
+  lcd.setCursor(0, 0);//numerios visibles del LCD
+  lcd.print("Voltaje");    // Muestra texto Listo
+  lcd.init();//parametro de lcd
+  lcd.backlight();//parametro de lcd
+}
+
+void loop() {
+  int volpar = digitalRead(voltage);//interrupcion 1
+  int amperpar = digitalRead(amperaje);//interrupcion 2
+  
+  if (volpar == LOW) {//parametros de if
+    lectura = analogRead(pindevol);//parametros de if
+    lcd.println(lectura);//parametros de if
+    lcd.clear();//parametros de if
+    lcd.print("VOLTAJE");//parametros de if
+    float voltage = obtenerVoltaje();//parametros de if
+    mostrarVoltaje(voltage);//parametros de if
+
+  } else if (amperpar == LOW) {//parametros de if
+    lcd.clear();//parametros de if
+    lcd.print("AMPERIOS");//parametros de if
+    float current = obtenerCorriente();//parametros de if
+    mostrarCorriente(current);//parametros de if
+  }
+}
+
+float obtenerVoltaje() {//funcio
+  int sensorValue = analogRead(pindevol);//caracter
+  float voltage = (sensorValue *4.85 / 1023.0) * referencia;//parametros
+  return voltage;//vol
+}
+
+float obtenerCorriente() {//funcio
+  int sensorValue = analogRead(CURRENT_SENSOR_PIN);//caracter
+  float voltage = (sensorValue / 1023.0) * referencia;//parametros
+  float current = (voltage - CURRENT_REFERENCE) / ACS712_SENSITIVITY;//parametros
+  return current;//amper
+}
+
+void mostrarVoltaje(float voltage) {//funcion
+  lcd.setCursor(0, 1);//lcd parametros
+  lcd.print("Voltaje: ");//lcd mostrsr
+  lcd.print(voltage);//lcd parametros
+  lcd.print(" V");//lcd mostrsr
+}
+
+void mostrarCorriente(float current) {
+  lcd.setCursor(0, 1);//lcd parametros
+  lcd.print("Corriente: ");//lcd mostrsr
+  lcd.print(current);//lcd parametros
+  lcd.print(" A");//lcd mostrsr
+}
