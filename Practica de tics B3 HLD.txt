@@ -1,0 +1,34 @@
+/*Hallann Lázaro
+2022227
+app 3*/
+
+int estado = 0;
+int rele = 7;
+int rele2 = 6;
+
+void setup() {
+Serial.begin(9600);  
+pinMode(rele,OUTPUT);
+pinMode(rele2,OUTPUT);
+digitalWrite(rele,HIGH);//apagar el foco
+digitalWrite(rele2,HIGH);//apagar el foco
+}
+
+void loop() {
+  
+ if(Serial.available() > 0){
+  estado = Serial.read();
+  
+ }
+
+ if(estado == '1'){
+  digitalWrite(rele,LOW);
+  digitalWrite(rele2,LOW);
+ }
+
+ if(estado == '2'){
+  digitalWrite(rele,HIGH);
+  digitalWrite(rele2,LOW);
+ }
+
+}
